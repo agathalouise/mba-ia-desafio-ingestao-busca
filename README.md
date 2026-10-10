@@ -121,35 +121,59 @@ Faça um fork do repositório para utilizar a estrutura abaixo: https://github.c
 └── README.md             # Instruções de execução
 ```
 
-## VirtualEnv para Python
+## Como Configurar e Executar o Projeto
 
-Crie e ative um ambiente virtual antes de instalar dependências:
+### 1. Criar e Ativar o Ambiente Virtual (VirtualEnv)
 
-```
+**No Linux/macOS:**
+```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-## Ordem de execução
-
-1. Subir o banco de dados:
-
+**No Windows (PowerShell):**
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
 ```
+
+### 2. Instalar as Dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configurar as Variáveis de Ambiente
+
+Copie o arquivo de exemplo `.env.example` para `.env`:
+
+```bash
+cp .env.example .env
+```
+*(No Windows PowerShell: `Copy-Item .env.example .env`)*
+
+Edite o arquivo `.env` informando sua API Key do provedor escolhido (**OpenAI** ou **Google Gemini**):
+
+- Para **OpenAI**: defina `OPENAI_API_KEY=sua_chave`
+- Para **Gemini**: defina `GOOGLE_API_KEY=sua_chave` e opcionalmente `LLM_PROVIDER=google`
+
+### 4. Ordem de Execução
+
+1. **Subir o banco de dados PostgreSQL com pgVector:**
+```bash
 docker compose up -d
 ```
 
-2. Executar ingestão do PDF:
-
-```
+2. **Executar a ingestão do PDF:**
+```bash
 python src/ingest.py
 ```
 
-3. Rodar o chat:
-
-```
+3. **Iniciar a CLI de Chat e Busca Semântica:**
+```bash
 python src/chat.py
 ```
 
 ## Entregável
 
-Repositório público no GitHub contendo todo o código-fonte e README com instruções claras de execução do projeto.
+Repositório público no GitHub contendo todo o código-fonte e README com instruções claras de execução do projeto.
